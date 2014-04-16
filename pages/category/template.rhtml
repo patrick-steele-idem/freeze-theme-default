@@ -1,5 +1,6 @@
 <optimizer-page name="index" package-path="./optimizer.json"/>
-<c-require module="../../helpers" var="helpers"/>
+
+<c-var name="generator" value="data.generator"/>
 
 <layout-use template="../../layouts/default-layout.rhtml" site="${data.site}" output-dir="${data.outputDir}">
     <layout-put into="title">${data.category.title}</layout-put>
@@ -7,7 +8,7 @@
         
         <section class="post" c-for="post in data.posts">
             <h3 class="post-title">
-                <a href="${helpers.postUrl(post)}">${post.title}</a> <span class="separator">&middot;</span> ${helpers.postDate(post.date)}
+                <a href="${generator.postUrl(post)}">${post.title}</a> <span class="separator">&middot;</span> ${generator.formattedDate(post.date)}
             </h3>
         </section>
 

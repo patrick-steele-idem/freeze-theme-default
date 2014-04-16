@@ -5,12 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "view-engine-raptor": "^0.1.3-beta",
-    "async": "^0.7.0",
     "view-engine": "^0.1.3-beta",
     "raptor-optimizer": "^0.2.41-beta",
     "raptor-optimizer-taglib": "^0.1.15-beta",
-    "browser-refresh": "^0.1.3-beta",
-    "feed": "^0.2.6"
+    "browser-refresh": "^0.1.3-beta"
   },
   "devDependencies": {
     "mocha": "~1.15.1",

@@ -10,15 +10,13 @@ function dateComparator(a, b) {
 
 exports.render = function render(data) {
     var site = data.site;
-    var outputDir = data.outputDir;
     var posts = data.postCategory.posts.all.concat([]);
-
     posts.sort(dateComparator);
 
     return template.stream({
         category: data.postCategory,
         site: site,
         posts: posts,
-        outputDir: outputDir
+        generator: data.generator
     });
 };
