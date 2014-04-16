@@ -1,0 +1,15 @@
+<optimizer-page name="index" package-path="./optimizer.json"/>
+<c-require module="../../helpers" var="helpers"/>
+
+<layout-use template="../../layouts/default-layout.rhtml" site="${data.site}" output-dir="${data.outputDir}">
+    <layout-put into="title">${data.category.title}</layout-put>
+    <layout-put into="body">
+        
+        <section class="post" c-for="post in data.posts">
+            <h3 class="post-title">
+                <a href="${helpers.postUrl(post)}">${post.title}</a> <span class="separator">&middot;</span> ${helpers.postDate(post.date)}
+            </h3>
+        </section>
+
+    </layout-put>
+</layout-use>

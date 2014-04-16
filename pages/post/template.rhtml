@@ -1,0 +1,72 @@
+<optimizer-page name="index" package-path="./optimizer.json"/>
+
+<c-require module="../../helpers" var="helpers"/>
+
+<c-var name="post" value="data.post"/>
+<c-var name="olderPost" value="data.olderPost"/>
+<c-var name="newerPost" value="data.newerPost"/>
+<c-var name="site" value="data.site"/>
+<c-var name="formattedDate" value="helpers.postDate(post.date)"/>
+
+<layout-use template="../../layouts/default-layout.rhtml" site="${site}" output-dir="${data.outputDir}">
+    <layout-put into="title">$post.title | ${site.title}</layout-put>
+    <layout-put into="body">
+        
+        <article class="hentry" role="article">
+            
+            <h1 class="post-title">$post.title</h1>
+
+            <div class="post-meta">
+                <span class="byline author vcard">
+                    Posted by <span class="fn">$post.author.name</span>
+                </span> on 
+                <time data-updated="true" pubdate datetime="${helpers.machineDate(post.date)}">
+                    ${formattedDate}
+                </time> 
+                <span class="categories" c-if="notEmpty(post.categories)">
+                    &nbsp;
+                    <nobr>
+                        <i class="fa fa-tags"></i> 
+                        <a href="${helpers.categoryUrl(category)}"
+                            class="category"
+                            c-for="category in post.categories; separator=', '">
+                            $category.title
+                        </a>
+                    </nobr>
+                </span>
+            </div>
+            
+            <div class="post-body">
+                $!{data.bodyHtml}
+            </div>
+            <div class="post-footer">
+                
+                <div class="sharing">
+                    
+                </div>
+                <div class="post-nav">
+                    <span class="post-older" c-if="olderPost">
+                        <a title="Older Post: $olderPost.title" 
+                            href="${helpers.postUrl(olderPost)}" 
+                            class="post-older"
+                            c-if="olderPost">
+                            « Older: ${olderPost.title}
+                        </a>
+                    </span>
+                    <span class="post-newer" c-if="newerPost">
+                        Newer:
+                        <a title="Next Post: $newerPost.title" 
+                            href="${helpers.postUrl(newerPost)}" 
+                            class="post-newer">
+                            ${newerPost.title} <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </article>
+        <section>
+            <h1>Comments</h1>
+        </section>
+
+    </layout-put>
+</layout-use>

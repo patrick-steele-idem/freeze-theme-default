@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">    
+    <head>
+        
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>
+            <layout-placeholder name="title"/>
+        </title>
+        <meta name="description" content="${data.site.description}" />
+        
+        <link rel="shortcut icon" href="{{@blog.logo}}"/>
+        
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="MobileOptimized" content="320" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <optimizer-head/>
+    </head>
+    <body>
+        <header id="header">
+            
+            <a id="logo" href="${data.site.url}" c-if="data.site.logo">
+                <optimizer-img src="${data.site.logo}" alt="${data.site.title}"/>
+                
+            </a>
+            <h1>
+                <a href="${data.site.url}">
+                    ${data.site.title}
+                </a>
+            </h1>
+            <p>${data.site.description}</p>
+            <!-- <h6><a href="{{@blog.url}}/about">About</a></h6> -->
+        </header>
+        <main id="content">
+            <layout-placeholder name="body"/>
+        </main>
+        <footer id="footer">
+            <section id="footer-message">
+                &copy; ${data.site.copyrightDate} ${data.site.title}.
+                All rights reserved.
+                Powered by <a href="https://github.com/patrick-steele-idem/velociblog" target="_blank">Freeze</a>.
+                Theme adapted from <a href="http://github.com/kathyqian/crisp" target="_blank">Crisp</a> by 
+                <a href="http://kathyqian.com" target="_blank">Kathy Qian</a>.
+            </section>
+        </footer>
+
+        <optimizer-body/>
+
+        <browser-refresh-refresh enabled="true"/>
+    </body>
+</html>
