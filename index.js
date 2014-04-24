@@ -11,16 +11,39 @@ viewEngine.configure({
 });
 
 
+
 module.exports = function createGenerator(site, util) {
     var outputDir = site.outputDir;
     var staticDir = nodePath.join(outputDir, 'static');
 
-    require('raptor-optimizer').configure({
-        fileWriter: {
-            outputDir: staticDir,
-            urlPrefix: '/static'
-        }
-    });
+    if (site.options.isPublic) {
+        require('raptor-optimizer').configure({
+            fileWriter: {
+                outputDir: staticDir,
+                urlPrefix: '/static',
+                checksumsEnabled: true
+            },
+            bundlingEnabled: true,
+            transforms: [
+                'raptor-optimizer-minify-css',
+                'raptor-optimizer-minify-js',
+                'raptor-optimizer-resolve-css-urls'
+            ]
+        });
+    } else {
+        require('raptor-optimizer').configure({
+            fileWriter: {
+                outputDir: staticDir,
+                urlPrefix: '/static',
+                checksumsEnabled: false
+            },
+            bundlingEnabled: false,
+            transforms: [
+                'raptor-optimizer-resolve-css-urls'
+            ]
+        });    
+    }
+    
 
     return {
         before: function(callback) {
@@ -39,8 +62,23 @@ module.exports = function createGenerator(site, util) {
             });
         },
 
+        generatePage: function(page, callback) {
+            return require('./pages/page').render({
+                site: site,
+                page: page,
+                generator: this
+            });
+        },
+
         generateIndex: function(callback) {
             return require('./pages/index').render({
+                site: site,
+                generator: this
+            });
+        },
+
+        generateArchive: function(callback) {
+            return require('./pages/archive').render({
                 site: site,
                 generator: this
             });

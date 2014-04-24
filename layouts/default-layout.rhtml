@@ -9,7 +9,7 @@
         </title>
         <meta name="description" content="${data.site.description}" />
         
-        <link rel="shortcut icon" href="{{@blog.logo}}"/>
+        <link href="${data.site.generator.resolveUrl('/favicon.ico')}" rel="icon">
         
         <meta name="HandheldFriendly" content="True" />
         <meta name="MobileOptimized" content="320" />
@@ -18,33 +18,94 @@
         <optimizer-head/>
     </head>
     <body>
-        <header id="header">
-            
-            <a id="logo" href="${data.site.url}" c-if="data.site.logo">
-                <optimizer-img src="${data.site.logo}" alt="${data.site.title}"/>
-            </a>
-            <h1>
-                <a href="${data.site.url}">
-                    ${data.site.title}
-                </a>
-            </h1>
-            <p>${data.site.description}</p>
-            <!-- <h6><a href="{{@blog.url}}/about">About</a></h6> -->
-        </header>
-        <main id="content">
-            <layout-placeholder name="body"/>
-        </main>
-        <footer id="footer">
-            <section id="footer-message">
-                &copy; ${data.site.copyrightDate} ${data.site.title}.
-                All rights reserved.
-                Powered by <a href="https://github.com/patrick-steele-idem/velociblog" target="_blank">Freeze</a>.
-                Theme adapted from <a href="http://github.com/kathyqian/crisp" target="_blank">Crisp</a> by 
-                <a href="http://kathyqian.com" target="_blank">Kathy Qian</a>.
-            </section>
-        </footer>
+        <div id="header-bg"></div>
+        <div id="nav-bg"></div>
 
+        <div id="content">
+            <header id="header">
+                <div id="titles">
+                    <h1>
+                        <a href="${data.site.generator.indexUrl()}">
+                            ${data.site.title}
+                        </a>
+                    </h1>
+                    <h2>
+                        ${data.site.subtitle}
+                    </h2>
+                </div>
+            </header>
+
+            <nav role="navigation" id="nav">
+                <ul class="main-navigation">
+                    <li c-for="navLink in data.site.navLinks">
+                        <a href="${data.site.generator.resolveUrl(navLink.url)}">
+                            ${navLink.title}
+                        </a>
+                    </li>
+                    <li>
+                        <form action="https://google.com/search" method="get" class="search-form">
+                            <fieldset role="search">
+                                <input type="hidden" name="q" value="site:${data.site.searchUrl || data.site.url}">
+                                <input type="text" name="q" results="0" placeholder="Search" class="search-input">
+                            </fieldset>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+
+            
+            <main id="main">
+                <layout-placeholder name="body"/>
+            </main>
+
+            <aside id="sidebar">
+                <div id="logo">
+                    <a href="${data.site.url}" c-if="data.site.logo">
+                        <optimizer-img src="${data.site.logo}" alt="${data.site.title}"/>
+                    </a>
+                </div>
+                <p class="bio">
+                    $!{data.site.shortBio}
+                </p>
+
+                <p class="links" c-if="notEmpty(data.site.sidebarLinks)">
+                    <a href="${link.url}" c-for="link in data.site.sidebarLinks; separator=' '">
+                        <i class="${link.className}" c-if="link.className"></i> 
+                        <optimizer-img src="${link.image}" c-else-if="link.image">
+                    </a>
+                </p>
+
+                <section>
+                    <h1>Projects</h1>
+                    <ul c-if="notEmpty(data.site.projects)">
+                        <li c-for="project in data.site.projects">
+                            <a href="$project.url">$project.title</a>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Explore</h1>
+                    <ul>
+                        <li c-for="category in data.site.postCategories.all">
+                            <a href="${data.site.generator.postCategoryUrl(category)}">$category.title ($category.postCount)</a>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+            
+            <footer id="footer">
+                <section id="footer-message">
+                    &copy; ${data.site.copyrightDate} ${data.site.title}.
+                    All rights reserved.
+                    Powered by <a href="https://github.com/patrick-steele-idem/freeze" target="_blank">Freeze</a>.
+                </section>
+            </footer>
+        </div>
+        
         <optimizer-body/>
+
+        <google-analytics tracking-id="${data.site.googleAnalyticsTrackingID}"
+            domain="${data.site.googleAnalyticsDomain}" />
 
         <browser-refresh enabled="true"/>
     </body>

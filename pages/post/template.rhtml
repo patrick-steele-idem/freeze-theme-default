@@ -1,4 +1,4 @@
-<optimizer-page name="index" package-path="./optimizer.json"/>
+<optimizer-page name="post" package-path="./optimizer.json"/>
 
 <c-var name="post" value="data.post"/>
 <c-var name="olderPost" value="data.nextOlderPost"/>
@@ -63,8 +63,12 @@
                 </div>
             </div>
         </article>
-        <section>
+        <section c-if="post.comments !== false">
             <h1>Comments</h1>
+            <div id="disqus_thread"></div>
+            <disqus-comments disqus-shortname="${site.disqusShortname}"
+                page-id="${post.name}"
+                page-title="${post.title}" />
         </section>
 
     </layout-put>
