@@ -1,5 +1,6 @@
 var viewEngine = require('view-engine');
 var nodePath = require('path');
+var raptorOptimizer = require('raptor-optimizer');
 
 viewEngine.configure({
     engines: {
@@ -10,19 +11,20 @@ viewEngine.configure({
     }
 });
 
-
-
 module.exports = function createGenerator(site, util) {
     var outputDir = site.outputDir;
     var staticDir = nodePath.join(outputDir, 'static');
 
+    var plugins = {};
+
     if (site.options.isPublic) {
-        require('raptor-optimizer').configure({
+        raptorOptimizer.configure({
             fileWriter: {
                 outputDir: staticDir,
                 urlPrefix: '/static',
                 checksumsEnabled: true
             },
+            plugins: plugins,
             bundlingEnabled: true,
             transforms: [
                 'raptor-optimizer-minify-css',
@@ -31,12 +33,13 @@ module.exports = function createGenerator(site, util) {
             ]
         });
     } else {
-        require('raptor-optimizer').configure({
+        raptorOptimizer.configure({
             fileWriter: {
                 outputDir: staticDir,
                 urlPrefix: '/static',
                 checksumsEnabled: false
             },
+            plugins: plugins,
             bundlingEnabled: false,
             transforms: [
                 'raptor-optimizer-resolve-css-urls'
