@@ -26,6 +26,9 @@ module.exports = function render(input, context) {
         }
     }
 
+    if (!input['disqusShortname']) {
+        throw new Error('disqusShortname is required');
+    }
 
     template.render({
             varsCode: varsCode

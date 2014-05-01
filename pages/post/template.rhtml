@@ -10,7 +10,9 @@
 <layout-use template="../../layouts/default-layout.rhtml" site="${site}" generator="${generator}">
     <layout-put into="title">$post.title | ${site.title}</layout-put>
     <layout-put into="body">
-        
+        <div class="draft" c-if="!post.isPublished">
+            <fa-icon name="exclamation-circle"/> Draft
+        </div>
         <article class="hentry" role="article">
             
             <h1 class="post-title">$post.title</h1>
@@ -41,7 +43,7 @@
             <div class="post-footer">
                 
                 <div class="sharing">
-                    
+                    <twitter-share-link via="$post.author.twitterHandle" />
                 </div>
                 <div class="post-nav">
                     <span class="post-older" c-if="olderPost">
