@@ -1,29 +1,29 @@
 {
-  "name": "freeze-theme-default",
-  "version": "0.1.0-beta",
-  "description": "The default theme for Freeze",
-  "main": "index.js",
-  "dependencies": {
-    "view-engine-raptor": "^0.1.3-beta",
-    "view-engine": "^0.1.3-beta",
-    "raptor-optimizer": "^0.2.41-beta",
-    "raptor-optimizer-taglib": "^0.1.15-beta",
-    "browser-refresh": "^0.1.3-beta"
-  },
-  "devDependencies": {
-    "mocha": "~1.15.1",
-    "chai": "~1.8.1"
-  },
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/freeze/freeze-theme-default"
-  },
-  "keywords": [
-    "freeze",
-    "freeze-theme"
-  ],
-  "author": "Patrick Steele-Idem <pnidem@gmail.com>",
-  "license": "BSD",
-  "readmeFilename": "README.md"
+    "name": "freeze-theme-default",
+    "description": "The default theme for Freeze",
+    "main": "index.js",
+    "dependencies": {
+        "view-engine-raptor": "^0.1.3-beta",
+        "view-engine": "^0.1.3-beta",
+        "raptor-optimizer": "^0.2.41-beta",
+        "raptor-optimizer-taglib": "^0.1.15-beta",
+        "browser-refresh": "^0.1.3-beta"
+    },
+    "devDependencies": {
+        "mocha": "~1.15.1",
+        "chai": "~1.8.1"
+    },
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/freeze/freeze-theme-default"
+    },
+    "keywords": [
+        "freeze",
+        "freeze-theme"
+    ],
+    "author": "Patrick Steele-Idem <pnidem@gmail.com>",
+    "license": "BSD",
+    "readmeFilename": "README.md",
+    "version": "0.1.1-beta"
 }
